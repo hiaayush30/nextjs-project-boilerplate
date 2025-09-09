@@ -32,7 +32,7 @@ function Signup() {
       router.push("/login");
     } catch (error) {
       if (error instanceof AxiosError) {
-        toast(error.response?.data?.error)
+        toast(error.response?.data?.error || "Something went wrong!")
       }
       else {
         toast("Something went wrong! Please try again.");
