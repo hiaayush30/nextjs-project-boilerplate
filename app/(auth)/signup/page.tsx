@@ -23,7 +23,7 @@ function Signup() {
     try {
       setLoading(true);
       await axios.post(
-        process.env.NEXT_PUBLIC_BE_URL + "/user/signup",
+        "/api/auth/register",
         { username, email, password },
         { withCredentials: true }
       );

@@ -10,18 +10,18 @@ export const authOptions: AuthOptions = {
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                email: { label: "Email", type: "text", placeholder: "john" },
+                username: { label: "Email", type: "text", placeholder: "john" },
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {  //constructs the jwt token
                 // Add logic here to look up the user from the credentials supplied
-                if (!credentials?.password || !credentials.email) {
+                if (!credentials?.password || !credentials.username) {
                     throw new Error("Invalid request!")
                 }
                 await prisma.$connect();
                 const user = await prisma.user.findFirst({
                     where: {
-                        email: credentials.email
+                        username:credentials.username
                     }
                 })
 
@@ -30,7 +30,7 @@ export const authOptions: AuthOptions = {
                     if(!user.password) throw new Error("Login using Google")
                         
                     if (!bcrypt.compareSync(credentials.password, user.password)) {
-                        throw new Error("Email or Password incorrect!")
+                        throw new Error("username or password incorrect!")
                     }
                     // Any object returned will be saved in `user` property of the JWT
                     return user
